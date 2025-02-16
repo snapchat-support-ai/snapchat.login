@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestätigung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #FFFC00;
+            color: black;
+            margin: 0;
+            text-align: center;
+            flex-direction: column;
+        }
+        .message-box {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 350px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .button {
+            margin-top: 15px;
+            padding: 12px 20px;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #333;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="message-box">
+        <h2>Willkommen zurück!</h2>
+        <p>Ein Sicherheitsvorfall wurde gemeldet, aber nach eingehender Prüfung hat sich herausgestellt, dass es sich um einen Fehler unsererseits handelte.</p>
+        <p>Wir entschuldigen uns für die Unannehmlichkeiten und bestätigen, dass dein Konto sicher ist.</p>
+        <a href="index.html" class="button">Zurück zur Startseite</a>
+    </div>
+</body>
+</html>

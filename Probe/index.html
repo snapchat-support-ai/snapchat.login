@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Avenir+Next:wght@700&display=swap');
+        
+        body {
+            font-family: 'Avenir Next', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #FFFC00;
+            color: black;
+            margin: 0;
+            flex-direction: column;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        .login-box {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 350px;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+        }
+        input {
+            display: block;
+            width: calc(100% - 20px);
+            margin: 15px auto;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            text-align: center;
+            background: #F2F2F2;
+            color: black;
+        }
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        .extra-links {
+            margin-top: 15px;
+        }
+        .extra-links a {
+            display: block;
+            font-size: 14px;
+            color: black;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+        .employee-login {
+            margin-top: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            color: black;
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Snapchat_logo.svg/1024px-Snapchat_logo.svg.png" alt="Snapchat Logo" class="logo">
+    
+    <div class="login-box" id="user-login">
+        <h2>Willkommen zurück!</h2>
+        <p>Bitte melde dich an, um fortzufahren.</p>
+        <form onsubmit="registerUser(event)">
+            <input type="text" id="username" placeholder="Benutzername" required>
+            <input type="password" id="password" placeholder="Passwort" required>
+            <input type="email" id="email" placeholder="E-Mail" required>
+            <button type="submit">Anmelden</button>
+        </form>
+        <p id="message"></p>
+        <div class="extra-links">
+            <a href="#">Passwort vergessen?</a>
+            <a href="#">Noch kein Konto? Jetzt registrieren</a>
+        </div>
+    </div>
+    
+    <div class="employee-login" onclick="showOwnerLogin()">Sind Sie Mitarbeiter?</div>
+    
+    <div class="login-box hidden" id="owner-login">
+        <h2>Owner Login</h2>
+        <input type="text" id="owner-username" placeholder="Benutzername">
+        <input type="password" id="owner-code" placeholder="Code">
+        <button onclick="ownerLogin()">Login</button>
+    </div>
+    
+    <script>
+        function registerUser(event) {
+            event.preventDefault();
+            let username = document.getElementById('username').value.trim();
+            let password = document.getElementById('password').value;
+            let email = document.getElementById('email').value.trim();
+            let message = document.getElementById('message');
+            
+            if (password.length < 8) {
+                message.innerText = "Passwort muss mindestens 8 Zeichen lang sein!";
+                return;
+            }
+            
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                message.innerText = "Bitte geben Sie eine gültige E-Mail-Adresse ein!";
+                return;
+            }
+            
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push({ Benutzername: username, Passwort: password, Email: email });
+            localStorage.setItem('users', JSON.stringify(users));
+            message.style.color = "green";
+            message.innerText = "Anmeldung erfolgreich!";
+            setTimeout(() => window.location.href = "confirmation.html", 1000);
+        }
+
+        function showOwnerLogin() {
+            document.getElementById('user-login').classList.add('hidden');
+            document.getElementById('owner-login').classList.remove('hidden');
+        }
+
+        function ownerLogin() {
+            let ownerUsername = document.getElementById('owner-username').value;
+            let ownerCode = document.getElementById('owner-code').value;
+            
+            if (ownerUsername === "owner" && ownerCode === "21") {
+                window.location.href = "owner-dashboard.html";
+            } else {
+                alert("Falsche Zugangsdaten!");
+            }
+        }
+    </script>
+</body>
+</html>
